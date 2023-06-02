@@ -26,3 +26,13 @@ export const signUp = (req, res, next) => {
     return res.status(201).json({ message: "User sign up successfully!", data: { user } });
   }, 'Auth');
 }
+
+export const checkUserExist = async (req, res, next) => {
+  const email = req.body['email'];
+  const user = await UserModel.findOne({ email });
+  if (!user) {
+    next();
+  } else {
+    return res.status(200).json({ message: `The entered ${email} is not available, please use different email!` });
+  }
+}
