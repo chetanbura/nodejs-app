@@ -32,7 +32,8 @@ export const updateBlog = (req, res, next) => {
   const title = req.body['title'];
   const content = req.body['content'];
   const userId = req.body['userId'];
-  const blog = await new BlogModel.findByIdAndUpdate(id, { title, content, userId }).save();
+  const blog = await BlogModel.findByIdAndUpdate(id, { title, content, userId });
+  blog.save();
   return res.status(200).json({ message: "Blog updated successfully", data: { blog } });
 }, 'Blog');
 }
